@@ -5,6 +5,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
 import authRoute from './routes/auth.route';
+import authMiddleware from './middlewares/auth.middleware';
 
 const app = new Hono().basePath('/api');
 app.use(cors());
@@ -14,7 +15,7 @@ app.use(prettyJSON());
 
 app.route('/auth', authRoute);
 
-app.get('/', (c) => {
+app.get('/', authMiddleware.jwtAuth, (c) => {
   return c.text('Hello Hono!');
 });
 
