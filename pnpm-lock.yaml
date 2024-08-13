@@ -23,6 +23,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.12.0
         version: 1.12.0
+      '@hono/zod-validator':
+        specifier: ^0.2.2
+        version: 0.2.2(hono@4.5.5)(zod@3.23.8)
       '@prisma/client':
         specifier: 5.18.0
         version: 5.18.0(prisma@5.18.0)
@@ -32,6 +35,9 @@ importers:
       hono:
         specifier: ^4.5.5
         version: 4.5.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
@@ -535,6 +541,12 @@ packages:
   '@hono/node-server@1.12.0':
     resolution: {integrity: sha512-e6oHjNiErRxsZRZBmc2KucuvY3btlO/XPncIpP2X75bRdTilF9GLjm3NHvKKunpJbbJJj31/FoPTksTf8djAVw==}
     engines: {node: '>=18.14.1'}
+
+  '@hono/zod-validator@0.2.2':
+    resolution: {integrity: sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -1739,6 +1751,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
 snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
@@ -2070,6 +2085,11 @@ snapshots:
   '@eslint/object-schema@2.1.4': {}
 
   '@hono/node-server@1.12.0': {}
+
+  '@hono/zod-validator@0.2.2(hono@4.5.5)(zod@3.23.8)':
+    dependencies:
+      hono: 4.5.5
+      zod: 3.23.8
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -3314,3 +3334,5 @@ snapshots:
   yallist@4.0.0: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.23.8: {}
