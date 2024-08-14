@@ -27,7 +27,12 @@ export default {
     return c.json(
       {
         message: 'Login success',
-        data: { ...user, token: token },
+        data: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          token: token,
+        },
       },
       200
     );
@@ -64,7 +69,11 @@ export default {
     return c.json(
       {
         message: 'Register success',
-        data: user,
+        data: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        },
       },
       200
     );
