@@ -1,10 +1,30 @@
 import { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleLogin = () => {};
+  const { login } = useAuth();
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    if (email != null && password != null) {
+      await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          console.log(data);
+          await login(data.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  };
   return (
     <div className="container mx-auto mt-16">
       <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-md">
@@ -47,7 +67,7 @@ export const Login = () => {
               className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Register
+              Login
             </button>
           </form>
         </div>
