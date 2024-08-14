@@ -1,16 +1,15 @@
-import React from 'react'; // Import React
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
-// Define the props type
 interface AuthRouteProps {
   children: React.ReactNode;
 }
 
 export const AuthRoute: React.FC<AuthRouteProps> = ({ children }) => {
-  const { token } = useAuth();
+  const { user } = useAuth();
 
-  if (!token) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
