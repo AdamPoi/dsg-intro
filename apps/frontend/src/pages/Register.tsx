@@ -1,13 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { FormData, RegisterSchema } from '../types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import FormField from '../components/FormField';
 
 function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
   useEffect(() => {
     if (user) {
@@ -15,14 +24,13 @@ function Register() {
     }
   }, [user]);
 
-  const handleRegister = async (e: any) => {
-    e.preventDefault();
+  const onSubmit = async (data: FormData) => {
     const response = await fetch('http://localhost:3000/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify(data),
     });
     if (response.ok) {
       alert('Register success');
@@ -37,7 +45,7 @@ function Register() {
       <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-md">
         <div className="px-6 py-4">
           <h2 className="text-2xl font-bold mb-2">Register</h2>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -45,13 +53,12 @@ function Register() {
               >
                 Name
               </label>
-              <input
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name"
+              <FormField
                 type="text"
                 placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="name"
+                register={register}
+                error={errors.name}
               />
             </div>
             <div className="mb-4">
@@ -61,13 +68,12 @@ function Register() {
               >
                 Email
               </label>
-              <input
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
+              <FormField
                 type="email"
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                register={register}
+                error={errors.email}
               />
             </div>
             <div className="mb-4">
@@ -77,13 +83,12 @@ function Register() {
               >
                 Password
               </label>
-              <input
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
+              <FormField
                 type="password"
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                register={register}
+                error={errors.password}
               />
             </div>
             <button

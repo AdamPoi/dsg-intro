@@ -25,18 +25,22 @@ export const Login = () => {
   }, [user]);
 
   const onSubmit = async (data: FormData) => {
-    const { email, password } = data;
-    console.log(data);
     await fetch('http://localhost:3000/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(data),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        if (res.status === 401) {
+          alert('Invalid credentials');
+        }
+      })
       .then(async (data) => {
-        console.log(data);
         await login(data.data);
       })
       .catch((error) => {
