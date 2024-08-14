@@ -1,7 +1,7 @@
-export const Home = () => (
+export const Dashboard = () => (
   <div>
-    <h1>This is the Home Page</h1>
+    <h1>This is the Dashboard Page</h1>
   </div>
 );
 
-export default Home;
+export default Dashboard;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-orange-600 py-4">
+    <header className="bg-orange-500 py-4">
       <nav className="container mx-auto flex items-center justify-between">
         <a href="/" className="text-white text-xl font-bold">
           Logo
