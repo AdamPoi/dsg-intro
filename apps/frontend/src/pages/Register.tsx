@@ -18,7 +18,6 @@ function Register() {
     });
     if (response.ok) {
       alert('Register success');
-      // navigate to login page
       navigate('/login');
     } else {
       const data = await response.json();
