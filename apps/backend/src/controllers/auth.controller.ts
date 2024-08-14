@@ -14,12 +14,22 @@ export default {
     });
 
     if (!user) {
-      throw new HTTPException(404, { message: 'User not found' });
+      return c.json(
+        {
+          message: 'Invalid email and password',
+        },
+        401
+      );
     }
     const bcrypt = require('bcrypt');
     const passwordMatch = await bcrypt.compare(body.password, user.password);
     if (!passwordMatch) {
-      throw new HTTPException(401, { message: 'Invalid email and password' });
+      return c.json(
+        {
+          message: 'Invalid email and password',
+        },
+        401
+      );
     }
     const secret: string = process.env.SECRET_KEY || '';
     const token = await sign(user, secret);
